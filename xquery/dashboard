@@ -65,28 +65,29 @@ declare function local:minutes_to_days_hrs_min($mins) {
       <td> {if (exists($minage)) then local:minutes_to_days_hrs_min($minage) else ()} </td>
       <td> {if (not (exists($freqmin)) or (not (exists($ages))))
             then <span style="background-color: pink"> unknown</span> 
-            else if ($minage <= 1.2* $freqmin) 
-            then <span style="background-color: green"> &lt; 20% late</span>
-            else if ($minage <= 2* $freqmin) 
-            then <span style="background-color: orange"> &lt; 100% late</span>
-            else <span style="background-color: red"> &gt;= 100% late</span>
+            else if ($minage <= $freqmin) 
+            then <span style="background-color: green"> current</span>
+            else if ($minage <= 1.5* $freqmin) 
+            then <span style="background-color: orange"> &lt; 50% late</span>
+            else <span style="background-color: red"> &gt;= 50% late</span>
            }
       </td>
       <td>{if (exists($maxage)) then local:minutes_to_days_hrs_min($maxage) else () } </td>
       <td>{if (not (exists($freqmin)) or (not (exists($ages))))
              then <span style="background-color: pink"> unknown</span> 
-             else if ($maxage <= 1.2* $freqmin) 
-             then <span style="background-color: green"> &lt; 20% late</span>
-             else if ($maxage <= 2* $freqmin) 
-             then <span style="background-color: orange"> &lt; 100% late</span>
-             else <span style="background-color: red"> &gt;= 100% late</span>
+           else if ($maxage <= $freqmin) 
+            then <span style="background-color: green"> current</span>
+            else if ($maxage <= 1.5* $freqmin) 
+            then <span style="background-color: orange"> &lt; 50% late</span>
+            else <span style="background-color: red"> &gt;= 50% late</span>
             }
        </td> 
      </tr>
  }
  </table>
  <hr/>
- <div>Configuration data in <a href="data/realtimefeeds.xml">Configuration and stream metadata</a></div>
- <div>This dashboard was made by <a href="http://kitwallace.co.uk"> Chris Wallace </a> on 23 March 2016 using XQuery (source on Github) on an eXist-db database.  </div>
+ <div>Configuration and stream metadata <a href="data/realtimefeeds.xml">XML</a></div>
+ <div>This dashboard was made by <a href="http://kitwallace.co.uk"> Chris Wallace </a> on 23 March 2016 using XQuery 
+ <a href="https://github.com/KitWallace/odb/blob/master/xquery/dashboard">(source on Github)</a> on an <a href="http://exist-db.org">eXist-db</a> database.  </div>
 
  </html>
