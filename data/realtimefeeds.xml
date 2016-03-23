@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feeds>
+    <feed>
+        <title>Car Park Occupancy</title>
+        <frequency unit="minutes">10</frequency>
+        <rows>4</rows>
+        <setid>a427-ptgs</setid>
+        <pageurl>https://opendata.bristol.gov.uk/Mobility/Car-Park-Occupancy/a427-ptgs</pageurl>
+        <id>
+            <field>cp_code</field>
+            <example>BRIS-C00001</example>
+            <description>dont know what this references - NAPTAN code?</description>
+        </id>
+        <dateTime>
+            <code>date:epoch-seconds-to-dateTime($row/status_time)</code>
+            <field>
+                <name>status_time</name>
+                <description>unix timestamp</description>
+            </field>
+        </dateTime>
+        <location>
+            <description>possibly via cp_code ? </description>
+        </location>
+        <data>
+            <field>
+                <name>capacity</name>
+                <format>integer</format>
+                <description>total capacity of carpark</description>
+            </field>
+            <field>
+                <name>remaining_spaces</name>
+                <format>integer</format>
+                <description>number of unoccupied spaces</description>
+            </field>
+            <field>
+                <name>occupancy</name>
+                <format>integer</format>
+                <description>percentage occupancy of carpark - ie 100*(capacity -
+                    spaces_remaining)/capacity</description>
+            </field>
+        </data>
+    </feed>
+    <feed>
+        <title>Latest Journey Times</title>
+        <frequency unit="minutes">5</frequency>
+        <setid>8hvd-j3b8</setid>
+        <rows>30</rows>
+        <pageurl>https://opendata.bristol.gov.uk/Mobility/Latest-journey-times/8hvd-j3b8</pageurl>
+        <source>not known</source>
+        <id>
+            <field>
+                <name>section_id</name>
+                <example>SECTIONTL00063</example>
+            </field>
+        </id>
+        <dateTime>
+            <code>date:epoch-seconds-to-dateTime($row/time)</code>
+            <field>
+                <name>time</name>
+                <format>integer</format>
+                <description>unix timestamp</description>
+            </field>
+        </dateTime>
+        <location>
+            <description>not clear whihc part of the road section this points to. Also have field
+                location with attributes latitude and longitude - why the redundancy</description>
+            <field>
+                <name>lat</name>
+                <format>decimal</format>
+                <description>Latitude in decimal degrees</description>
+            </field>
+            <field>
+                <name>long</name>
+                <format>decimal</format>
+                <description>Longitude in decimal degrees</description>
+            </field>
+            <field>
+                <name>location</name>
+                <attribute>
+                    <name>latitude</name>
+                    <format>decimal</format>
+                    <description>Latitude in decimal degrees</description>
+                </attribute>
+                <attribute>
+                    <name>longitude</name>
+                    <format>decimal</format>
+                    <description>Longitude in decimal degrees</description>
+                </attribute>
+            </field>
+        </location>
+        <address>
+            <field>
+                <name>section_description</name>
+                <description>Abbreviated road section description</description>
+            </field>
+        </address>
+        <data>
+            <field>
+                <name>travel_time</name>
+                <format>integer</format>
+                <description>?travel time for this section in seconds</description>
+            </field>
+            <field>
+                <name>est_speed</name>
+                <format>decimal</format>
+                <description>estimated speed in mph </description>
+            </field>
+        </data>
+        <comment>It would be useful to know the length of the section since it must be used compute
+            the speed </comment>
+    </feed>
+    <feed>
+        <title>Roadworks</title>
+        <frequency unit="hours">24</frequency>
+        <setid>fpdj-qssx</setid>
+        <pageurl>https://opendata.bristol.gov.uk/Mobility/roadworks/fpdj-qssx</pageurl>
+        <source/>
+        <id>
+            <field>objectid</field>
+            <example>96</example>
+        </id>
+        <dateTime>
+            <field>
+                <name>start_date</name>
+                <format>YYYY-MM-DD</format>
+                <description>start date of roadworks</description>
+            </field>
+            <field>
+                <name>end_date</name>
+                <format>YYYY-MM-DD</format>
+                <description>end date of roadworks</description>
+            </field>
+        </dateTime>
+        <location>
+            <field>
+                <name>lat</name>
+                <format>decimal</format>
+                <description>Latitude in decimal degrees</description>
+            </field>
+            <field>
+                <name>long</name>
+                <format>decimal</format>
+                <description>Longitude in decimal degrees</description>
+            </field>
+            <field>
+                <name>location</name>
+                <attribute>
+                    <name>latitude</name>
+                    <format>decimal</format>
+                    <description>Latitude in decimal degrees</description>
+                </attribute>
+                <attribute>
+                    <name>longitude</name>
+                    <format>decimal</format>
+                    <description>Longitude in decimal degrees</description>
+                </attribute>
+            </field>
+            <field>
+                <name>gb_gr_x</name>
+                <format>integer</format>
+                <description>GB Grid reference - Easting</description>
+            </field>
+            <field>
+                <name>gb_gr_y</name>
+                <format>integer</format>
+                <description>GB Grid reference - Northing</description>
+            </field>
+        </location>
+        <address>
+            <field>
+                <name>road</name>
+                <description>Road name</description>
+            </field>
+        </address>
+        <data>
+            <field>
+                <name>nature_of_works</name>
+            </field>
+            <field>
+                <name>description</name>
+            </field>
+            <field>
+                <name>weather_dependent</name>
+                <format>Y|N</format>
+            </field>
+            <field>
+                <name>severity</name>
+                <format>High|Medium|Low</format>
+                <description/>
+            </field>
+            <field>
+                <name>status</name>
+                <format>New|Current|Future|Updated</format>
+                <description/>
+            </field>
+            <field>
+                <name>info_today</name>
+                <format>High|Medium|Low</format>
+                <description/>
+            </field>
+        </data>
+        <comment>There is a field info_today but no date of info - insecure to assume it is todays
+            date whenever accessed. </comment>
+    </feed>
+    <feed>
+        <title>EV Charging</title>
+        <frequency unit="minutes">5</frequency>
+        <setid>bhtk-5hwb</setid>
+        <pageurl>https://opendata.bristol.gov.uk/Mobility/EV-charging/bhtk-5hwb</pageurl>
+        <id>
+            <field>
+                <name>id</name>
+                <example>1018</example>
+            </field>
+            <field>
+                <name>bay_no</name>
+                <example>60407</example>
+            </field>
+        </id>
+        <dateTime>
+            <code>$row/last_status_update</code>
+            <field>
+                <name>last_status_update</name>
+                <format>YYYY-MM-DDThh:mm:ss</format>
+                <description>date of last update</description>
+            </field>
+        </dateTime>
+        <location>
+            <field>
+                <name>location_1</name>
+                <attribute>
+                    <name>latitude</name>
+                    <description>Latitude in decimal degrees</description>
+                </attribute>
+                <attribute>
+                    <name>longitude</name>
+                    <description>Longitude in decimal degrees</description>
+                </attribute>
+            </field>
+        </location>
+        <address>
+            <field>
+                <name>site_name</name>
+                <description>Street/Car park name</description>
+            </field>
+            <field>
+                <name>postcode</name>
+                <description>Postcode</description>
+            </field>
+        </address>
+        <properties>
+            <field>
+                <name>bay_count</name>
+                <format>integer?</format>
+                <description>seems to be the number of connectors in this bay - miss-named ?
+                    Sometimes blank</description>
+            </field>
+            <field>
+                <name>charger_type</name>
+            </field>
+            <field>
+                <name>power_output</name>
+            </field>
+            <field>
+                <name>socket_type</name>
+            </field>
+            <field>
+                <name>payg_available</name>
+                <format>true|false</format>
+            </field>
+            <field>
+                <name>show_on_map</name>
+                <format>true|false</format>
+            </field>
+            <field>
+                <name>tariff_description</name>
+                <format>free|</format>
+            </field>
+            <field>
+                <name>tariff_unit</name>
+                <format>hour|</format>
+            </field>
+            <field>
+                <name>tariff_price</name>
+                <format>integer</format>
+            </field>
+            <field>
+                <name>connector_1_socket_type</name>
+            </field>
+            <field>
+                <name>connector_2_socket_type</name>
+                <description>blank if only one connector</description>
+            </field>
+            <field>
+                <name>connector_3_socket_type</name>
+                <description>blank if only one connector</description>
+            </field>
+            <field>
+                <name>connector_4_socket_type</name>
+                <description>blank if only one connector</description>
+            </field>
+            <field>
+                <name>connector_1_power_output</name>
+                <format>integer</format>
+                <description/>
+            </field>
+            <field>
+                <name>connector_2_power_output</name>
+                <format>integer</format>
+                <description/>
+            </field>
+            <field>
+                <name>connector_3_power_output</name>
+                <format>integer</format>
+                <description/>
+            </field>
+            <field>
+                <name>connector_4_power_output</name>
+                <format>integer</format>
+                <description/>
+            </field>
+        </properties>
+        <data>
+            <field>
+                <name>last_known_status</name>
+                <format>IDLE|OUT_OF_SERVICE|TRANSACTION_IN_PROGRESS|UNKNOWN</format>
+            </field>
+            <field>
+                <name>last_known_status</name>
+                <format>IDLE|</format>
+            </field>
+            <field>
+                <name>in_service</name>
+                <format>true|false</format>
+            </field>
+            <field>
+                <name>connector_1_status</name>
+                <format>IDLE|OUT_OF_SERVICE|TRANSACTION_IN_PROGRESS|UNKNOWN</format>
+                <description/>
+            </field>
+            <field>
+                <name>connector_2_status</name>
+                <format>IDLE|OUT_OF_SERVICE|TRANSACTION_IN_PROGRESS|UNKNOWN|blank</format>
+                <description/>
+            </field>
+            <field>
+                <name>connector_3_status</name>
+                <format>IDLE|OUT_OF_SERVICE|TRANSACTION_IN_PROGRESS|UNKNOWN|blank</format>
+                <description/>
+            </field>
+            <field>
+                <name>connector_4_status</name>
+                <format>IDLE|OUT_OF_SERVICE|TRANSACTION_IN_PROGRESS|UNKNOWN|blank</format>
+                <description/>
+            </field>
+        </data>
+        <comment>this seems to be an unnormalised set describing up to 5 connectors per bay - the
+            first is unnamed and there follow up to 4 connectors in named fields. This would be much
+            easier to use if normalised. </comment>
+    </feed>
+    <feed>
+        <title>Real time Air Quality</title>
+        <frequency unit="hours">1</frequency>
+        <rows>3</rows>
+        <setid>hnkb-7z35</setid>
+        <pageurl>https://opendata.bristol.gov.uk/Environment/Latest-Air-Quality/hnkb-7z35</pageurl>
+        <link>http://www.bristol.airqualitydata.com/</link>
+        <id>
+            <field>
+                <name>monitor_id</name>
+                <example>3</example>
+            </field>
+        </id>
+        <dateTime>
+            <code>let $d := tokenize($row/date,"/") return concat($d[3],"-",$d[2],"-",$d[1],"T",$row/time)</code>
+            <field>
+                <name>date</name>
+                <format>DD/MM/YYYY</format>
+                <description>date of observation</description>
+            </field>
+            <field>
+                <name>time</name>
+                <format>hh:mm:ss</format>
+                <description>time of observation</description>
+            </field>
+        </dateTime>
+        <field>
+            <name>lat</name>
+            <format>decimal</format>
+            <description>Latitude in decimal degrees</description>
+        </field>
+        <field>
+            <name>long</name>
+            <format>decimal</format>
+            <description>Longitude in decimal degrees</description>
+        </field>
+        <field>
+            <name>location</name>
+            <attribute>
+                <name>latitude</name>
+                <format>decimal</format>
+                <description>Latitude in decimal degrees</description>
+            </attribute>
+            <attribute>
+                <name>longitude</name>
+                <format>decimal</format>
+                <description>Longitude in decimal degrees</description>
+            </attribute>
+        </field>
+        <address>
+            <field>
+                <name>monitor_description</name>
+                <description>rough locations - inconsistant case </description>
+            </field>
+        </address>
+        <data>
+            <field>
+                <name>nox</name>
+                <format>integer</format>
+                <description>NO<sub>x</sub> in µg/m<sup>3</sup>
+                </description>
+            </field>
+            <field>
+                <name>no</name>
+                <format>integer</format>
+                <description>NO in µg/m<sup>3</sup>
+                </description>
+            </field>
+            <field>
+                <name>no2</name>
+                <format>integer</format>
+                <description>NO<sub>2</sub> in µg/m<sup>3</sup>
+                </description>
+            </field>
+            <field>
+                <name>ave_no2</name>
+                <format>integer</format>
+                <description>? Average NO<sub>2</sub> in µg/m<sup>3</sup> over the preceeding hour?</description>
+                <comment>This data is missing from the BCC Air Quality page </comment>
+            </field>
+        </data>
+        <comment>Wells road was included but has now disappeared </comment>
+    </feed>
+    <feed>
+        <title>River Levels</title>
+        <frequency unit="hours">6</frequency>
+        <setid>cet8-4kym</setid>
+        <rows>6</rows>
+        <pageurl>https://opendata.bristol.gov.uk/Environment/Water-level-of-Rivers-in-Bristol-area/cet8-4kym</pageurl>
+        <source>Environment Agency API</source>
+        <dateTime>
+            <code>date:epoch-seconds-to-dateTime($row/currentvaluetime)</code>
+            <field>
+                <name>currentvaluetime</name>
+                <format>integer</format>
+                <description>unix timestamp</description>
+            </field>
+        </dateTime>
+        <field>
+            <name>latitude</name>
+            <format>decimal</format>
+            <description>Latitude in decimal degrees</description>
+        </field>
+        <field>
+            <name>longitude</name>
+            <format>decimal</format>
+            <description>Longitude in decimal degrees</description>
+        </field>
+        <field>
+            <name>location</name>
+            <attribute>
+                <name>latitude</name>
+                <format>decimal</format>
+                <description>Latitude in decimal degrees</description>
+            </attribute>
+            <attribute>
+                <name>longitude</name>
+                <format>decimal</format>
+                <description>Longitude in decimal degrees</description>
+            </attribute>
+            <comment>excessive levels of resolution eg -2.553482698787075 is down to a nanometre (
+                about the size of a molecule) 1 m resolution needs only 5 decimal digits</comment>
+        </field>
+        <address>
+            <field>
+                <name>name</name>
+                <description>place name</description>
+            </field>
+        </address>
+        <data>
+            <field>
+                <name>currentvalue</name>
+                <format>decimal</format>
+                <description>unknown units and reference point </description>
+                <comment>excessive level of accuracy eg 0.020000000000000462 indicative of unrounded
+                    conversion from another unit </comment>
+            </field>
+        </data>
+    </feed>
+</feeds>
