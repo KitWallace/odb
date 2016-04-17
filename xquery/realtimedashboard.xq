@@ -1,7 +1,9 @@
-
-import module namespace date = "http://kitwallace.me/date" at "/db/lib/date.xqm";
-
 declare option exist:serialize "method=xhtml media-type=text/html";
+
+declare function local:epoch-seconds-to-dateTime($v) as xs:dateTime{  
+    xs:dateTime("1970-01-01T00:00:00-00:00")
+  + xs:dayTimeDuration(concat("PT", $v, "S"))
+};
 
 declare function local:minutes_to_days_hrs_min($mins) {
     if ($mins < 60) 
