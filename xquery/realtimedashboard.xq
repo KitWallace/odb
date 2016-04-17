@@ -20,9 +20,25 @@ declare function local:minutes_to_days_hrs_min($mins) {
                 concat($full_hours," hrs, ",$full_mins, " mins")
 };
    <html>
-    <head/>
+    <head>
+          <script src="jscripts/sorttable.js"></script>
+      <style>
+      tr.alternate:nth-child(even) {{background: lightgreen}}
+      a.external {{
+    background-image: url('images/Icon_External_Link.png');
+    padding-right: 12px;
+    text-decoration: none;
+    background-position: right;
+    background-repeat:no-repeat;
+}}
+      </style>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link href="http://kitwallace.co.uk/odb/images/icon128.PNG" rel="icon" sizes="128x128" />
+            <link rel="shortcut icon" type="image/png" href="http://kitwallace.co.uk/odb/images/icon128.PNG"/>
+
+    </head>
     <body>
-    <h3>Real time data streams from <a href="https://opendata.bristol.gov.uk/">Open Data Bristol</a> at {format-dateTime(current-dateTime(),"[H01]:[m01] [D01]/[M01]/[Y01]")}</h3>
+    <h3>Real time data streams from <a href="https://opendata.bristol.gov.uk/">Open Data Bristol</a> at {format-dateTime(current-dateTime() + xs:dayTimeDuration("PT1H"),"[H01]:[m01] on [D01]/[M01]/[Y0001]")}</h3>
 
  
 <table>
@@ -50,7 +66,7 @@ declare function local:minutes_to_days_hrs_min($mins) {
   {
  let $config := doc("./data/realtimefeeds.xml")
  for $feed in $config//feed
- let $dataurl := concat("https://opendata.bristol.gov.uk/api/views/",$feed/setid,"/rows.xml?accessType=DOWNLOAD")
+ let $dataurl := concat("https://opendata.bristol.gov.uk/api/views/",$feed/id,"/rows.xml?accessType=DOWNLOAD")
  let $data := doc($dataurl)
  let $rows := $data//row[@_id]
  let $dateTimeCode := $feed/dateTime/code
@@ -73,7 +89,7 @@ declare function local:minutes_to_days_hrs_min($mins) {
  let $maxage := $ages[last()]
  return
      <tr>
-      <th  style="text-align:left"><a href="{$feed/pageurl}">{$feed/title/string()}</a></th> 
+      <th  style="text-align:left"><a class="external" href="{$feed/pageurl}">{$feed/title/string()}</a></th> 
       <td>{count($rows)} {if (exists($feed/rows)) then concat (" of ",$feed/rows) else ()}</td>
       <td>{if (empty($feed/rows)) 
            then ()
